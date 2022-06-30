@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import SingelInformation from './SingelInformation/SingelInformation';
 
 const MainTable = () => {
@@ -8,6 +9,14 @@ const MainTable = () => {
      .then(res=>res.json())
      .then(data=>setInformation(data))
     },[])
+
+   
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const onSubmit= (data)=>{
+     
+      console.log(data);
+      
+             }
     return (
      <div>
         <div className=' w-full flex justify-between container '>
@@ -18,15 +27,116 @@ const MainTable = () => {
             <div>
             <label for="my-modal-3" class="btn modal-button">Add New Bill</label>
             {/* for modal======== */}
-           
-
-
-<input type="checkbox" id="my-modal-3" class="modal-toggle" />
-<div class="modal">
+           <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+     <div class="modal">
   <div class="modal-box relative">
     <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-    <h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
-    <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+    
+       <div class="form-control w-50 flex justify-center max-w-xs">
+
+
+
+{/* ============ FORM start===================== */}
+<form onSubmit={handleSubmit(onSubmit)}>
+
+<div className="form-control w-full max-w-xs">
+    <label className="label">
+        <span className="label-text">Name</span>
+    </label>
+    <input
+        type="text"
+        placeholder="Your Full Name"
+        className="input input-bordered w-full max-w-xs"
+        {...register("FullName", {
+            required: {
+                value: true,
+                message: 'Name is Required'
+            }
+        })}
+    />
+    <label className="label">
+        {errors.FullName?.type === 'required' && <span className="label-text-alt text-red-500">{errors.FullName.message}</span>}
+    </label>
+</div>
+
+<div className="form-control w-full max-w-xs">
+    <label className="label">
+        <span className="label-text">Email</span>
+    </label>
+    <input
+        type="email"
+        placeholder="Your Email"
+        className="input input-bordered w-full max-w-xs"
+        {...register("Email", {
+            required: {
+                value: true,
+                message: 'Email is Required'
+            },
+            pattern: {
+                value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                message: 'Provide a valid Email'
+            }
+        })}
+    />
+    <label className="label">
+        {errors.Email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.Email.message}</span>}
+        {errors.Email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.Email.message}</span>}
+    </label>
+</div>
+<div className="form-control w-full max-w-xs">
+    <label className="label">
+        <span className="label-text">Phone Number</span>
+    </label>
+    <input
+        type="Number"
+        placeholder="Phone Number"
+        className="input input-bordered w-full max-w-xs"
+        {...register("Phone", {
+            required: {
+                value: true,
+                message: 'Phone Number is Required'
+            },
+            minLength: {
+                value:11,
+                message:'Must be in 11 characters'
+            }
+        })}
+    />
+    <label className="label">
+        {errors.Phone?.type === 'required' && <span className="label-text-alt text-red-500">{errors.Phone.message}</span>}
+        {errors.Phone?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.Phone.message}</span>}
+    </label>
+    <label className="label">
+        <span className="label-text">Amount</span>
+    </label>
+    <input
+        type="Number"
+        placeholder="Amount you want pay"
+        className="input input-bordered w-full max-w-xs"
+        {...register("PaidAmmount", {
+            required: {
+                value: true,
+                message: 'Amount is Required'
+            }
+        })}
+    />
+    <label className="label">
+        {errors.PaidAmmount?.type === 'required' && <span className="label-text-alt text-red-500">{errors.PaidAmmount.message}</span>}
+       
+    </label>
+</div>
+
+
+<input className='btn w-full max-w-xs text-white' type="submit" value="Sign Up" />
+</form>
+
+ 
+{/* ==============form end=================== */}
+
+</div>
+
+      
+
   </div>
 </div>
             {/* for modal======== */}
