@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTable, useGlobalFilter, useFilters } from 'react-table';
 import SingelInformation from './SingelInformation/SingelInformation';
 
 const MainTable = () => {
@@ -11,18 +12,33 @@ const MainTable = () => {
     },[])
 
    
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors },reset, handleSubmit } = useForm();
     const onSubmit= (data)=>{
      
       console.log(data);
-      
+      fetch(`http://localhost:5000/api/billing-list`,{
+            method:'POST',
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data) 
+    
+        })
+        .then(res=>res.json())
+       .then(data=>{
+        alert('added succesfully')
+       
+      console.log('Success:', data);})
+      reset()
              }
+          
     return (
      <div>
         <div className=' w-full flex justify-between container '>
             <div className='flex ml-2 mb-1 '>
                 <h1 className='text-bold text-2xl mr-5'>Billings</h1>
-                <input type="text" placeholder="Search" class="input input-bordered" />
+                <input type="text" 
+                   placeholder={"Search name"} class="input input-bordered" />
             </div>
             <div>
             <label for="my-modal-3" class="btn modal-button">Add New Bill</label>
@@ -157,9 +173,10 @@ const MainTable = () => {
     </thead>
    
     {
-        Information.map(singelinfo=><SingelInformation
+        Information.map((singelinfo,index)=><SingelInformation
             singelinfo={singelinfo}
             key={singelinfo._id}
+            index={index}
         ></SingelInformation>)
     }
       
