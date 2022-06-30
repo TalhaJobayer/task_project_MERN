@@ -13,9 +13,9 @@ const SingelInformation = ({ singelinfo}) => {
         <td>{Email}</td>
         <td>{Phone}</td>
         <td>{PaidAmmount}</td>
-        <td>
-        <button class="btn mr-2">Delete</button>
-        <button class="btn">Update</button>
+        <td className='text-center'>
+        <button class="btn mr-2 ">Delete</button>
+        <button class="btn ">Update</button>
         </td>
       </tr>
       </tbody>
