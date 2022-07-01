@@ -1,16 +1,31 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import './MainTable.css'
 import { useForm } from 'react-hook-form';
 import { useTable, useGlobalFilter, useFilters } from 'react-table';
 import UseAllInformation from '../../UseHooks/UseAllInformation';
 import SingelInformation from './SingelInformation/SingelInformation';
 
 const MainTable = () => {
-    const [Information,setInformation]=UseAllInformation()
-    // useEffect(()=>{
-    //   fetch(`http://localhost:5000/api/billing-list`)
-    //  .then(res=>res.json())
-    //  .then(data=>setInformation(data))
-    // },[])
+    const [Activepage,setActivepage]=useState(0)
+    const [Information,SetInformation]=useState([])
+    useEffect(()=>{
+        fetch(`http://localhost:5000/api/billing-list?Activepage=${Activepage}`)
+       .then(res=>res.json())
+       .then(data=>SetInformation(data))
+      },[Activepage])
+
+    const [pageCount,setpageCount]=useState([])
+    
+    
+    useEffect(()=>{
+      fetch(`http://localhost:5000/dataCount`)
+     .then(res=>res.json())
+     .then(data=>{
+        const Count= data.allData
+              const pages=Math.ceil(Count/10)
+              setpageCount(pages)
+    })
+    },[])
 
    
     const { register, formState: { errors,isSubmitting },reset, handleSubmit } = useForm();
@@ -187,6 +202,18 @@ const MainTable = () => {
       
     
   </table>
+
+</div>
+<div className='pagination'>
+
+    {
+        [...Array(pageCount).keys()].map(number=>
+              <button
+              className={Activepage=== number ?'selected':''}
+            onClick={()=>setActivepage(number)}
+            >{number}</button>)
+    }
+
 </div>
      </div>
     );
