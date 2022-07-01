@@ -1,18 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTable, useGlobalFilter, useFilters } from 'react-table';
+import UseAllInformation from '../../UseHooks/UseAllInformation';
 import SingelInformation from './SingelInformation/SingelInformation';
 
 const MainTable = () => {
-    const [Information,setInformation]=useState([])
-    useEffect(()=>{
-      fetch(`http://localhost:5000/api/billing-list`)
-     .then(res=>res.json())
-     .then(data=>setInformation(data))
-    },[])
+    const [Information,setInformation]=UseAllInformation()
+    // useEffect(()=>{
+    //   fetch(`http://localhost:5000/api/billing-list`)
+    //  .then(res=>res.json())
+    //  .then(data=>setInformation(data))
+    // },[])
 
    
-    const { register, formState: { errors },reset, handleSubmit } = useForm();
+    const { register, formState: { errors,isSubmitting },reset, handleSubmit } = useForm();
     const onSubmit= (data)=>{
      
       console.log(data);
@@ -30,7 +31,9 @@ const MainTable = () => {
        
       console.log('Success:', data);})
       reset()
+     
              }
+          
           
     return (
      <div>
@@ -38,17 +41,17 @@ const MainTable = () => {
             <div className='flex ml-2 mb-1 '>
                 <h1 className='text-bold text-2xl mr-5'>Billings</h1>
                 <input type="text" 
-                   placeholder={"Search name"} class="input input-bordered" />
+                   placeholder={"Search name"} className="input input-bordered" />
             </div>
             <div>
-            <label for="my-modal-3" class="btn modal-button">Add New Bill</label>
+            <label htmlFor="my-modal-3" className="btn modal-button">Add New Bill</label>
             {/* for modal======== */}
-           <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-     <div class="modal">
-  <div class="modal-box relative">
-    <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+           <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+     <div className="modal">
+  <div className="modal-box relative">
+    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
     
-       <div class="form-control w-50 flex justify-center max-w-xs">
+       <div className="form-control w-50 flex justify-center max-w-xs">
 
 
 
@@ -143,7 +146,7 @@ const MainTable = () => {
 </div>
 
 
-<input className='btn w-full max-w-xs text-white' type="submit" value="Sign Up" />
+<input className='btn w-full max-w-xs text-white' type="submit" value="ADD NOW" />
 </form>
 
  
@@ -158,8 +161,8 @@ const MainTable = () => {
             {/* for modal======== */}
             </div>
         </div>
-           <div class="overflow-x-auto">
-  <table class="table table-zebra w-full">
+           <div className="overflow-x-auto">
+  <table className="table table-zebra w-full">
    
     <thead>
       <tr>
