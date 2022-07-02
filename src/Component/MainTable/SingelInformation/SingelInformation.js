@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import UseAllInformationDetails from '../../../UseHooks/UseAllInformationDetails';
 
 const SingelInformation = ({ singelinfo,index}) => {
-    const {_id,FullName,Email,Phone,PaidAmmount}= singelinfo
+    const {_id,Billing_id,FullName,Email,Phone,PaidAmmount}= singelinfo
     const [Information,SetInformation]=UseAllInformation() 
      const [singelInfoDetails,setsingelInfoDetails]=useState({})
 
@@ -14,7 +14,7 @@ const SingelInformation = ({ singelinfo,index}) => {
       
       const procced=window.confirm('Are you sure?')
          if(procced){
-            const url = `http://localhost:5000/api/billing-list/${id}`;
+            const url = `https://apologetic-whistler-24285.herokuapp.com/api/billing-list/${id}`;
             fetch(url, {
                 method: 'DELETE'
             })
@@ -43,7 +43,7 @@ const SingelInformation = ({ singelinfo,index}) => {
   
       console.log(singelInfoDetails);
    
-     fetch(`http://localhost:5000/api/billing-list/${singelInfoDetails._id}`,{
+     fetch(`https://apologetic-whistler-24285.herokuapp.com/api/billing-list/${singelInfoDetails._id}`,{
          method:'PUT',
           headers:{
              "Content-Type":"application/json"
@@ -67,7 +67,7 @@ const SingelInformation = ({ singelinfo,index}) => {
 
             
             <tr className="hover">
-            <th>{index + 1}</th>
+            <th>{_id}</th>
         <td>{FullName}</td>
         <td>{Email}</td>
         <td>{Phone}</td>

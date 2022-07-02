@@ -4,7 +4,7 @@ const UseAllInformation=()=>{
     const [Information,SetInformation]=useState([])
     
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/billing-list`)
+        fetch(`https://apologetic-whistler-24285.herokuapp.com/api/billing-list`)
        .then(res=>res.json())
        .then(data=>SetInformation(data))
       },[])

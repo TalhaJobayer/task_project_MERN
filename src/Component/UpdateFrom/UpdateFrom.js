@@ -6,7 +6,7 @@
 //     const onSubmit= (data)=>{
 
     
-//         fetch(`http://localhost:5000/api/billing-list/`,{
+//         fetch(`https://apologetic-whistler-24285.herokuapp.com/api/billing-list/`,{
 //             method:'put',
 //              headers:{
 //                 "Content-Type":"application/json"

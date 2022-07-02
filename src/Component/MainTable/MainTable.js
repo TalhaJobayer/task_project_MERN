@@ -9,7 +9,7 @@ const MainTable = () => {
     const [Activepage,setActivepage]=useState(0)
     const [Information,SetInformation]=useState([])
     useEffect(()=>{
-        fetch(`http://localhost:5000/api/billing-list?Activepage=${Activepage}`)
+        fetch(`https://apologetic-whistler-24285.herokuapp.com/api/billing-list?Activepage=${Activepage}`)
        .then(res=>res.json())
        .then(data=>SetInformation(data))
       },[Activepage])
@@ -18,7 +18,7 @@ const MainTable = () => {
     
     
     useEffect(()=>{
-      fetch(`http://localhost:5000/dataCount`)
+      fetch(`https://apologetic-whistler-24285.herokuapp.com/dataCount`)
      .then(res=>res.json())
      .then(data=>{
         const Count= data.allData
@@ -32,7 +32,7 @@ const MainTable = () => {
     const onSubmit= (data)=>{
      
       console.log(data);
-      fetch(`http://localhost:5000/api/billing-list`,{
+      fetch(`https://apologetic-whistler-24285.herokuapp.com/api/billing-list`,{
             method:'POST',
             headers:{
                 "Content-Type":"application/json"
@@ -181,7 +181,7 @@ const MainTable = () => {
    
     <thead>
       <tr>
-        <th>ID</th>
+        <th>Billing ID</th>
         <th>FullName</th>
         <th>Email</th>
         <th>Phone</th>
@@ -191,7 +191,7 @@ const MainTable = () => {
     </thead>
    
     {
-        Information.map((singelinfo,index)=><SingelInformation
+        Information.slice(0,10).map((singelinfo,index)=><SingelInformation
             singelinfo={singelinfo}
             key={singelinfo._id}
             index={index}
